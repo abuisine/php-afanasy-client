@@ -5,8 +5,7 @@ namespace Afanasy;
 use Exception;
 
 class Job {
-
-	const STATE_DONE	= " DON";
+	use HasState;
 
 	private $data = [];
 	private $blocks = [];
@@ -103,6 +102,15 @@ class Job {
 	public function getJSON() {
 		$obj = array("job" => $this->getData());
 		return json_encode($obj);
+		}
+
+	public function fromJSON($json) {
+		$this->data = $json;
+		$this->blocks = [];
+		if (array_key_exists('blocks', $json))
+			foreach ($json['blocks'] as $block)
+				$this->blocks[] = (new Block())->fromJSON($block);
+		return $this;
 		}
 
 	public function getData() {
@@ -297,14 +305,14 @@ class Job {
 	// 	"""
 	// 	$this->data["offline"] = True
 	// }
-		
+
 	// public function setTimeLife(, value)
 	// {
 	// 	"""Set job's time-life after which it will automatically be deleted.
 
 	// 	:param value: time in seconds
 	// 	"""
-	// 	# this will only pass positive int		
+	// 	# this will only pass positive int
 	// 	if str(value).isdigit():
 	// 		$this->data['time_life'] = value
 	// }
