@@ -43,7 +43,7 @@ class Network {
 		}
 
 	public function getJobById($id) {
-		$jobs = $this->getJobByIds([ $id ])['jobs'];
+		$jobs = $this->getJobsByIds([ $id ])['jobs'];
 
 		if ( count($jobs) == 0 )
 			throw new Exception("Job with id {$id} not found");

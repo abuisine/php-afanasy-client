@@ -96,7 +96,7 @@ class AfanasyTest extends TestCase {
 		$this->assertArrayHasKey('p_error_hosts', $blockResponse);
 		$this->assertGreaterThan(0, $blockResponse['p_error_hosts']);
 
-		$this->network->restartErrorHosts([$response['id']]);
+		$this->network->resetErrorHosts([$response['id']]);
 		for ($i = 0; $i < 10; $i++) {
 			$jobResponse = $this->network->getJobById($response['id']);
 			if ( States::arrayHasState($jobResponse, States::ERROR) )
